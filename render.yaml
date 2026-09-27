@@ -1,6 +1,6 @@
 services:
   # 1. PostgreSQL Database
-  - type: pg
+  - type: database
     name: inspectra-postgres
     plan: free
     databaseName: inspectra_db
