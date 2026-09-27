@@ -2,13 +2,13 @@ databases:
   - name: inspectra-postgres
     plan: free
     databaseName: inspectra_db
-    databaseUser: inspectra
+    user: inspectra
 
 services:
   # 1. FastAPI Backend Web Service
   - type: web
     name: inspectra-backend
-    runtime: python
+    env: python
     plan: free
     rootDir: backend
     buildCommand: "pip install -r requirements.txt && python seed/seed_data.py"
@@ -30,10 +30,10 @@ services:
   # 2. React Vite Frontend Static Site
   - type: web
     name: inspectra-frontend
-    runtime: static
+    env: static
     rootDir: frontend
     buildCommand: "npm install && npm run build"
-    publishPath: ./dist
+    staticPublishPath: ./dist
     routes:
       - type: rewrite
         source: /*
