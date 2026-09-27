@@ -32,9 +32,14 @@ app = FastAPI(
 )
 
 # CORS setup
+origins = list(settings.BACKEND_CORS_ORIGINS)
+if settings.PUBLIC_URL and settings.PUBLIC_URL not in origins:
+    origins.append(settings.PUBLIC_URL)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.BACKEND_CORS_ORIGINS,
+    allow_origins=origins,
+    allow_origin_regex=r"https://.*\.onrender\.com|http://localhost:.*|http://127\.0\.0\.1:.*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
